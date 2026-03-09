@@ -5,6 +5,15 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/0.1.0/)
 
 ## [Unreleased]
 
+## [0.1.6] — 2026-03-09
+
+### Added
+- FreeCAD macro `3D/cyd_case.py` to generate front & back plates for the CYD enclosure (86×60mm, 3.5mm thick)
+- Front plate: screen cutout 70×50mm, centred
+- Back plate: engraved `C_SHOCK` label, centred
+- Rounded external corners (r=3mm) on both plates
+- M3 mounting holes at all 4 corners
+
 ## [0.1.5] — 2026-03-09
 
 ### Changed
