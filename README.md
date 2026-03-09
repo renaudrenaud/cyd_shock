@@ -6,6 +6,8 @@ BLE time synchronization server for G-Shock / Edifice / ProTrek watches, running
 
 ---
 
+![CYD Shock interface](resources/CYD_SHOCK.jpg)
+
 ## Demo
 
 [![CYD Shock demo](https://img.youtube.com/vi/v-EeG2gj7ZY/0.jpg)](https://youtu.be/v-EeG2gj7ZY)
