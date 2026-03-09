@@ -22,6 +22,8 @@ THICKNESS   =  3.5   # plate thickness
 HOLE_D      =  3.2   # M3 mounting hole diameter
 HOLE_INSET  =  4.0   # hole centre distance from PCB edge
 
+FILLET_R    =  3.0   # external corner radius
+
 # ============================================================
 #  Derived values
 # ============================================================
@@ -40,6 +42,20 @@ holes = [
     (BORDER + PCB_W - HOLE_INSET, BORDER + PCB_H - HOLE_INSET),
 ]
 
+def fillet_corners(shape, radius):
+    bb = shape.BoundBox
+    corner_edges = []
+    for edge in shape.Edges:
+        if len(edge.Vertexes) < 2:
+            continue
+        v1, v2 = edge.Vertexes[0], edge.Vertexes[1]
+        if abs(v1.X - v2.X) < 0.01 and abs(v1.Y - v2.Y) < 0.01:
+            at_x = abs(v1.X - bb.XMin) < 0.01 or abs(v1.X - bb.XMax) < 0.01
+            at_y = abs(v1.Y - bb.YMin) < 0.01 or abs(v1.Y - bb.YMax) < 0.01
+            if at_x and at_y:
+                corner_edges.append(edge)
+    return shape.makeFillet(radius, corner_edges) if corner_edges else shape
+
 def make_holes(shape):
     for (hx, hy) in holes:
         cyl = Part.makeCylinder(HOLE_D / 2, THICKNESS, FreeCAD.Vector(hx, hy, 0))
@@ -55,6 +71,7 @@ screen_cut = Part.makeBox(SCREEN_W, SCREEN_H, THICKNESS,
                           FreeCAD.Vector(SX, SY, 0))
 front = front.cut(screen_cut)
 front = make_holes(front)
+front = fillet_corners(front, FILLET_R)
 
 front_obj = doc.addObject("Part::Feature", "Front")
 front_obj.Shape = front
@@ -84,6 +101,8 @@ try:
     back = back.cut(text_solid)
 except Exception as e:
     print(f"Text engraving failed: {e} — check FONT path")
+
+back = fillet_corners(back, FILLET_R)
 
 back_obj = doc.addObject("Part::Feature", "Back")
 back_obj.Shape = back
