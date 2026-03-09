@@ -61,10 +61,29 @@ front_obj.Shape = front
 front_obj.ViewObject.ShapeColor = (0.2, 0.5, 0.9)
 
 # ============================================================
-#  Back plate — flat
+#  Back plate — with engraved label
 # ============================================================
 back = Part.makeBox(W, H, THICKNESS)
 back = make_holes(back)
+
+# Engraved text "C_SHOCK" centred on the bottom face (z=0)
+FONT    = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+LABEL   = "C_SHOCK"
+FONT_SZ = 8.0
+DEPTH   = 0.5   # engraving depth (mm)
+
+try:
+    text_wires = Part.makeShapeString(LABEL, FONT, FONT_SZ, 0.0)
+    text_solid = text_wires.extrude(FreeCAD.Vector(0, 0, DEPTH))
+
+    bb = text_solid.BoundBox
+    tx = (W - bb.XLength) / 2 - bb.XMin
+    ty = (H - bb.YLength) / 2 - bb.YMin
+    text_solid.translate(FreeCAD.Vector(tx, ty, 0))
+
+    back = back.cut(text_solid)
+except Exception as e:
+    print(f"Text engraving failed: {e} — check FONT path")
 
 back_obj = doc.addObject("Part::Feature", "Back")
 back_obj.Shape = back
