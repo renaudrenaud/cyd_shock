@@ -11,13 +11,13 @@ doc = FreeCAD.newDocument("CYD_Case")
 #  Dimensions (mm) — adjust if your board differs
 # ============================================================
 PCB_W       = 86.0   # board width  (landscape)
-PCB_H       = 50.0   # board height (landscape)
+PCB_H       = 60.0   # board height (landscape)
 
-SCREEN_W    = 57.6   # display visible width  (landscape)
-SCREEN_H    = 43.2   # display visible height (landscape)
+SCREEN_W    = 70.0   # display cutout width  (landscape)
+SCREEN_H    = 50.0   # display cutout height (landscape)
 
-BORDER      =  5.0   # border around the PCB
-THICKNESS   =  2.5   # plate thickness
+BORDER      =  0.0   # border around the PCB
+THICKNESS   =  3.5   # plate thickness
 
 HOLE_D      =  3.2   # M3 mounting hole diameter
 HOLE_INSET  =  4.0   # hole centre distance from PCB edge
