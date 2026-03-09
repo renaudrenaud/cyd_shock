@@ -6,6 +6,10 @@ BLE time synchronization server for G-Shock / Edifice / ProTrek watches, running
 
 ---
 
+## Demo
+
+[![CYD Shock demo](https://img.youtube.com/vi/v-EeG2gj7ZY/0.jpg)](https://youtu.be/v-EeG2gj7ZY)
+
 ## Credits
 
 All the real work is in **[gshock-api-esp32](https://github.com/izivkov/gshock-api-esp32)** by Ivo Zivkov (MIT) — this is where the G-Shock BLE protocol was reverse-engineered and implemented. CYD Shock is just a wrapper: it adds a display, a touch UI, and WiFi/NTP on top of that core protocol.
